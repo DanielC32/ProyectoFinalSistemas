@@ -9,6 +9,7 @@ import { createUser } from '../../lib/appwrite'
 
 
 
+
 const SignUp = () => {
 
   const [form, setForm] = useState({
@@ -23,11 +24,12 @@ const SignUp = () => {
     if(!form.username || !form.email || !form.password){
       Alert.alert('Error', 'Por favor llena todos los espacios')
     }
-    setisSubmitting(true);
 
+    setisSubmitting(true);
     try {
-      const result = await createUser(form.email, form.password,
-        form.username)
+      const result = await createUser(form.email, form.password, form.username);
+      setUser(result);
+      setIsLogged(true);
 
         router.replace('/home')
     } catch (error) {
