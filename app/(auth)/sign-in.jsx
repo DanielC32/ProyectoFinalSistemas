@@ -6,38 +6,40 @@ import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 import { Link, router } from 'expo-router'
 import { getCurrentUser, signIn } from '../../lib/appwrite'
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 
 
 const SignIn = () => {
-
+  const { setUser, setIsLogged } = useGlobalContext();
+  const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
-    email: '',
-    password: ''
-  })
+    email: "",
+    password: "",
+  });
 
-  const [isSubmitting, setisSubmitting] = useState(false)
-
-  const submit = async () =>{
-    if(!form.email || !form.password){
-      Alert.alert('Error', 'Por favor llena todos los espacios')
+  const submit = async () => {
+    if (form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
     }
-    setisSubmitting(true);
+
+    setSubmitting(true);
 
     try {
-       await signIn(form.email, form.password)
-       const result = await getCurrentUser();
-       setUser(result);
-       setIsLogged(true);
+      await signIn(form.email, form.password);
+      const result = await getCurrentUser();
+      setUser(result);
+      setIsLogged(true);
 
-       Alert.alert("Has iniciado sesion!")
-        router.replace('/home')
+      Alert.alert("Inicio de sesión correcto");
+      router.replace("/home");
     } catch (error) {
-      Alert.alert('Error', error.message)
-    } finally{
-      setisSubmitting(false)
+      Alert.alert("Error", error.message);
+    } finally {
+      setSubmitting(false);
     }
-  }
+  };
+
 
   return (
     <SafeAreaView className="bg-primary h-full">

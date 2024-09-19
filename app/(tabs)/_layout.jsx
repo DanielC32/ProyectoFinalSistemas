@@ -42,7 +42,7 @@ const TabsLayout = () => {
                         <TabIcon
                             icon={icons.home}
                             color={color}
-                            name="Home"
+                            name="Inicio"
                             focused={focused}
                         />
                     )
@@ -59,12 +59,12 @@ const TabsLayout = () => {
                     )
                 }}
                 />
-                <Tabs.Screen name="create" options={{
-                    title: 'Create', headerShown: false, tabBarIcon: ({ color, focused }) => (
+                <Tabs.Screen name="resuelve" options={{
+                    title: 'Resuelve', headerShown: false, tabBarIcon: ({ color, focused }) => (
                         <TabIcon
                             icon={icons.plus}
                             color={color}
-                            name="Create"
+                            name="Resuelve"
                             focused={focused}
                         />
                     )
@@ -75,7 +75,7 @@ const TabsLayout = () => {
                         <TabIcon
                             icon={icons.profile}
                             color={color}
-                            name="Profile"
+                            name="Perfil"
                             focused={focused}
                         />
                     )

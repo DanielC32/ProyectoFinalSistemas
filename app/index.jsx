@@ -5,14 +5,18 @@ import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../constants'
 import CustomButton from '../components/CustomButton'
+import Loader from '../components/Loader'
 import { useGlobalContext } from '../context/GlobalProvider'
 
 const index = () => {
-  const {isLoading, isLoggedIn} = useGlobalContext ();
-  if(!isLoading && isLoggedIn) return <Redirect href="/home" />
+  const { loading, isLogged } = useGlobalContext();
+
+  if (!loading && isLogged) return <Redirect href="/home" />;
+
   
   return (
     <SafeAreaView className="bg-primary h-full">
+      <Loader isLoading={loading} />
        <ScrollView contentContainerStyle={{ height: '100%'}}>
          <View className="w-full justify-center items-center min-h-[85vh] px-4">
            <Image source={images.logo}
