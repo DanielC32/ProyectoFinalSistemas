@@ -59,22 +59,19 @@ const Home = () => {
                 />
               </View>
             </View>
-
             <SearchInput />
-
             <View className="w-full flex-1 pt-5 pb-8">
               <Text className="text-lg font-pregular text-gray-100 mb-3">
-                Últimos ejercicios
+                Últimos ejercicios resueltos
               </Text>
-
               <Trending posts={latestPosts ?? []} />
             </View>
           </View>
         )}
         ListEmptyComponent={() => (
           <EmptyState
-            title="No Videos Found"
-            subtitle="No videos created yet"
+            title="Ejercicio no encontrado"
+            subtitle="Ese ejercicio no ha sido creado, ¡crealo!"
           />
         )}
         refreshControl={

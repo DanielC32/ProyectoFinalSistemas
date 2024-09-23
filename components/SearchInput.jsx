@@ -1,36 +1,39 @@
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import { icons } from '../constants'
+import { useState } from "react";
+import { router, usePathname } from "expo-router";
+import { View, TouchableOpacity, Image, TextInput, Alert } from "react-native";
 
+import { icons } from "../constants";
 
-const SearchInput = ({ title, value, placeholder,
-  handleChangeText, otherStyles, ...props }
-) => {
-
-  const [showPassword, setShowPassword] = useState(false)
+const SearchInput = ({ initialQuery }) => {
+  const pathname = usePathname();
+  const [query, setQuery] = useState(initialQuery || "");
 
   return (
-      <View className=" border-2 border-blue-500 w-full
-       h-16 px-4 bg-gray-100 rounded-xl
-       focus:border-secondary items-center flex-row 
-       space-x-4">
-        <TextInput
-          className="text-base mt-0.5 text-white flex-1
-          font-pregular"
-          value={value}
-          placeholder="Busca tema principal del ejecicio"
-          placeholderTextColor="#7b7b8b"
-          onChangeText={handleChangeText}
-          secureTextEntry={title === 'Password' && !showPassword}
-        />
+    <View className="flex flex-row items-center space-x-4 w-full h-16 px-4 bg-gray-100 rounded-2xl border-2 border-blue-200 focus:border-secondary">
+      <TextInput
+        className="text-base mt-0.5 text-white flex-1 font-pregular"
+        value={query}
+        placeholder="Busca por tema principal del ejercicio"
+        placeholderTextColor="#7b7b8b"
+        onChangeText={(e) => setQuery(e)}
+      />
 
-        <TouchableOpacity/>
-        <Image
-        source={icons.search}
-        className="w-5 h-5"
-        resizeMode='contain'/>
-      </View>
-  )
-}
+      <TouchableOpacity
+        onPress={() => {
+          if (query === "")
+            return Alert.alert(
+              "Missing Query",
+              "Please input something to search results across database"
+            );
 
-export default SearchInput
+          if (pathname.startsWith("/search")) router.setParams({ query });
+          else router.push(`/search/${query}`);
+        }}
+      >
+        <Image source={icons.search} className="w-5 h-5" resizeMode="contain" />
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+export default SearchInput;

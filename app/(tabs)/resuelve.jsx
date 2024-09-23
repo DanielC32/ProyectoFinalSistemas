@@ -1,12 +1,14 @@
-import { View, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Resuelve = () => {
+const resuelve = () => {
   return (
     <View>
-      <Text>Resuelve</Text>
+      <Text>resuelve</Text>
     </View>
   )
 }
 
-export default Resuelve
+export default resuelve
+
+const styles = StyleSheet.create({})
