@@ -59,17 +59,6 @@ const TabsLayout = () => {
                     )
                 }}
                 />
-                <Tabs.Screen name="crea" options={{
-                    title: 'Crea', headerShown: false, tabBarIcon: ({ color, focused }) => (
-                        <TabIcon
-                            icon={icons.plus}
-                            color={color}
-                            name="Crea"
-                            focused={focused}
-                        />
-                    )
-                }}
-                />
                 <Tabs.Screen name="profile" options={{
                     title: 'Profile', headerShown: false, tabBarIcon: ({ color, focused }) => (
                         <TabIcon

@@ -50,7 +50,7 @@ const Search = () => {
         ListEmptyComponent={() => (
           <EmptyState
             title="Ejercicio no encontrado"
-            subtitle="Ese ejercicio no ha sido creado, ¡crealo!"
+            subtitle="Ese ejercicio no ha sido creado"
           />
         )}
       />
