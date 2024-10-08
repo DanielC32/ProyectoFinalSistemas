@@ -48,12 +48,12 @@ const TabsLayout = () => {
                     )
                 }}
                 />
-                <Tabs.Screen name="resuelve" options={{
-                    title: 'Resuelve', headerShown: false, tabBarIcon: ({ color, focused }) => (
+                <Tabs.Screen name="ejercicios" options={{
+                    title: 'Ejercicios', headerShown: false, tabBarIcon: ({ color, focused }) => (
                         <TabIcon
                             icon={icons.bookmark}
                             color={color}
-                            name="Resuelve"
+                            name="Ejercicios"
                             focused={focused}
                         />
                     )

@@ -32,7 +32,7 @@ const SignIn = () => {
       setIsLogged(true);
 
       Alert.alert("Inicio de sesión correcto");
-      router.replace("/home");
+      router.replace("/resuelve");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
