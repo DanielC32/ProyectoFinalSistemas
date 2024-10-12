@@ -5,9 +5,10 @@ import { icons } from "../../constants";
 import useAppwrite from "../../lib/useAppwrite";
 import { getUserPosts, signOut } from "../../lib/appwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
-import  EjercicioCard  from "../../components/EjercicioCard";
-import  EmptyState from "../../components/EmptyState";
-import  InfoBox  from "../../components/InfoBox";
+import EjercicioCard from "../../components/EjercicioCard";
+import EmptyState from "../../components/EmptyState";
+import InfoBox from "../../components/InfoBox";
+
 
 
 const profile = () => {
@@ -22,9 +23,6 @@ const profile = () => {
     router.replace("/sign-in");
   };
 
-
-
-
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
@@ -33,10 +31,7 @@ const profile = () => {
         renderItem={({ item }) => (
           <EjercicioCard
             title={item.titulo}
-            thumbnail={item.thumbnail}
             ejercicio={item.ejercicio}
-            creator={item.creator.username}
-            avatar={item.creator.avatar}
           />
         )}
         ListEmptyComponent={() => (
@@ -77,7 +72,13 @@ const profile = () => {
                 title={posts.length || 0}
                 subtitle="Ejercicios resueltos"
                 titleStyles="text-xl"
-                containerStyles="mr-1"
+                containerStyles="mr-9"
+              />
+               <InfoBox
+                title={user?.score}
+                subtitle="Nivel"
+                titleStyles="text-xl"
+                containerStyles="ml-8"
               />
             </View>
           </View>

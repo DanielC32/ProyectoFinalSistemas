@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import React, { useState } from 'react';
+import { router, usePathname } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../../constants';
@@ -8,18 +9,7 @@ import CustomButton from '../../components/CustomButton';
 const Ejercicios = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(0);
-  const totalExercises = 8;
-
-  const exerciseImages = [
-    images.ej1,
-    images.ej2,
-    images.ej3,
-    images.ej4,
-    images.ej5,
-    images.ej6,
-    images.ej7,
-    images.ej8,
-  ];
+ 
 
   const handleExerciseSelect = (exerciseIndex) => {
     setCurrentExercise(exerciseIndex);
@@ -50,23 +40,23 @@ const Ejercicios = () => {
             </Text>
           </View>
           <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
-            Escoge el ejercicio que deseas:
+            Escoge la categoria de ejercicios que deseas resolver:
           </Text>
 
           {/* Botones para seleccionar ejercicios */}
           <CustomButton
             title="Derivadas"
-            handlePress={() => handleExerciseSelect(0)}
+            handlePress={() => router.push(`/searchCat/Derivadas`)}
             containerStyles="w-full mt-7"
           />
           <CustomButton
             title="Limites"
-            handlePress={() => handleExerciseSelect(1)}
+            handlePress={() => router.push(`/searchCat/Límites`)}
             containerStyles="w-full mt-7"
           />
           <CustomButton
             title="Ecuaciones"
-            handlePress={() => handleExerciseSelect(2)}
+            handlePress={() => router.push(`/searchCat/Ecuaciones`)}
             containerStyles="w-full mt-7"
           />
 

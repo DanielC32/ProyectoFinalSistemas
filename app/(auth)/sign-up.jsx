@@ -31,12 +31,11 @@ const SignUp = () => {
       setUser(result);
       setIsLogged(true);
       Alert.alert("¡Genial!", "Usuario creado con éxito");
-
-      router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
       setSubmitting(false);
+      router.replace("../tinicial");
     }
   };
 

@@ -1,12 +1,22 @@
 import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import { icons } from "../constants";
+import { MathView } from 'react-native-math-view';
+import axios from 'axios';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 
+const EjercicioCardSol = ({ title, categoria, ejercicio, dificultad }) => {
 
-const EjercicioCard = ({ title, categoria, ejercicio, dificultad }) => {
-
- 
+  async function getSolutionFromChatbot () {
+    const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+   
+    const prompt = `Resuelve esta derivada ${ejercicio} en 5 pasos y solo 5 lineas`;
+   
+    const result = await model.generateContent(prompt);
+    console.log(result.response.text());
+   }
 
   const [loading, setLoading] = useState(false);
   const [solution, setSolution] = useState("");
@@ -56,8 +66,31 @@ const EjercicioCard = ({ title, categoria, ejercicio, dificultad }) => {
           {ejercicio}
         </Text>
       </View>
+
+      <TouchableOpacity
+        onPress={getSolutionFromChatbot}
+        style={{
+          marginTop: 12,
+          padding: 10,
+          backgroundColor: '#007bff',
+          borderRadius: 10,
+        }}
+      >
+        <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center' }}>Mostrar Solución</Text>
+      </TouchableOpacity>
+
+      
+      {loading ? (
+        <ActivityIndicator size="large" color="#00ff00" style={{ marginTop: 12 }} />
+      ) : (
+        solution ? (
+          <View style={{ marginTop: 12, padding: 10, backgroundColor: '#e0e0e0', borderRadius: 10 }}>
+            <Text style={{ fontSize: 16, color: '#333' }}>{solution}</Text>
+          </View>
+        ) : null
+      )}
     </View>
   );
 };
 
-export default EjercicioCard;
+export default EjercicioCardSol;

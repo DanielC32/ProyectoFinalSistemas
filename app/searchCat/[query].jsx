@@ -2,16 +2,14 @@ import { useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { View, Text, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import useAppwrite from "../../lib/useAppwrite";
 import { searchPosts, searchPostsbyCat } from "../../lib/appwrite";
-import SearchInput from '../../components/SearchInput'
-import EjercicioCard from '../../components/EjercicioCard'
+import EjercicioCardOp from '../../components/EjercicioCardOp'
 import EmptyState from '../../components/EmptyState'
 
 const Search = () => {
   const { query } = useLocalSearchParams();
-  const { data: posts, refetch } = useAppwrite(() => searchPosts(query));
+  const { data: posts, refetch } = useAppwrite(() => searchPostsbyCat(query));
 
   useEffect(() => {
     refetch();
@@ -23,7 +21,7 @@ const Search = () => {
         data={posts}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <EjercicioCard
+          <EjercicioCardOp
             title={item.titulo}
             ejercicio={item.ejercicio}
             categoria={item.categoria}
@@ -33,22 +31,20 @@ const Search = () => {
           <>
             <View className="flex my-6 px-4">
               <Text className="font-pmedium text-gray-100 text-sm">
-                Resultados de busqueda
+                Resultados de
               </Text>
               <Text className="text-2xl font-psemibold text-white mt-1">
                 {query}
               </Text>
 
-              <View className="mt-6 mb-8">
-                <SearchInput initialQuery={query} refetch={refetch} />
-              </View>
+            
             </View>
           </>
         )}
         ListEmptyComponent={() => (
           <EmptyState
-            title="Ejercicio no encontrado"
-            subtitle="Ese ejercicio no ha sido creado"
+            title="Ejercicios no encontrados"
+            subtitle="Esos ejercicios no han sido creados"
           />
         )}
       />

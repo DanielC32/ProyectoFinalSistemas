@@ -1,20 +1,17 @@
 import { View, Text, FlatList, Image, RefreshControl, Alert } from 'react-native'
 import { useEffect, useState } from "react";
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { images } from '../../constants'
 import SearchInput from '../../components/SearchInput'
-import Trending from '../../components/Trending'
 import EjercicioCard from '../../components/EjercicioCard'
 import EmptyState from '../../components/EmptyState'
 import { getAllPosts, getLatestPosts } from '../../lib/appwrite';
 import useAppwrite from '../../lib/useAppwrite';
-import InfoBox from "../../components/InfoBox";
 import { useGlobalContext } from "../../context/GlobalProvider";
+
 
 const Home = () => {
 
   const { data: posts, refetch } = useAppwrite(getAllPosts);
-  const { data: latestPosts } = useAppwrite(getLatestPosts);
   const { user } = useGlobalContext();
 
   const [refreshing, setRefreshing] = useState(false);
@@ -26,17 +23,15 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView className="bg-primary">
+    <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
           <EjercicioCard
             title={item.titulo}
-            thumbnail={item.thumbnail}
             ejercicio={item.ejercicio}
-            creator={item.creator.username}
-            avatar={item.creator.avatar}
+            categoria={item.categoria}
           />
         )}
         ListHeaderComponent={() => (
@@ -60,18 +55,12 @@ const Home = () => {
               </View>
             </View>
             <SearchInput />
-            <View className="w-full flex-1 pt-5 pb-8">
-              <Text className="text-lg font-pregular text-gray-100 mb-3">
-                Últimos ejercicios resueltos
-              </Text>
-              <Trending posts={latestPosts ?? []} />
-            </View>
           </View>
         )}
         ListEmptyComponent={() => (
           <EmptyState
-            title="Ejercicio no encontrado"
-            subtitle="Ese ejercicio no ha sido creado, ¡crealo!"
+            title="No has resuelto ejercicios"
+            subtitle="¡Es un buen momento para resolver uno!"
           />
         )}
         refreshControl={
