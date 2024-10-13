@@ -25,6 +25,7 @@ const Search = () => {
             title={item.titulo}
             ejercicio={item.ejercicio}
             categoria={item.categoria}
+            ejercicioId={item.$id}
           />
         )}
         ListHeaderComponent={() => (

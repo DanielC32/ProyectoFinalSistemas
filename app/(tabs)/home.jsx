@@ -4,15 +4,19 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import SearchInput from '../../components/SearchInput'
 import EjercicioCard from '../../components/EjercicioCard'
 import EmptyState from '../../components/EmptyState'
-import { getAllPosts, getLatestPosts } from '../../lib/appwrite';
+import { searchPostsbyLv } from '../../lib/appwrite';
 import useAppwrite from '../../lib/useAppwrite';
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 
 const Home = () => {
 
-  const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { user } = useGlobalContext();
+  const { data: posts, refetch } = useAppwrite(() => searchPostsbyLv("4"));
+
+  useEffect(() => {
+    refetch();
+  }, [user.score]);
 
   const [refreshing, setRefreshing] = useState(false);
 

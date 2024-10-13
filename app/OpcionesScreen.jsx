@@ -1,58 +1,68 @@
 import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, Modal } from 'react-native';
 import React, { useState } from 'react';
-import { useRoute } from '@react-navigation/native'; // Para obtener los parámetros
+import { useRoute, useNavigation } from '@react-navigation/native';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getAccount, markExerciseAsResolved } from '../lib/appwrite';  // Importar la función
 
 const OpcionesScreen = () => {
-  const route = useRoute(); // Obtén los parámetros de la navegación
-  const { ejercicio, opciones, categoria, correctAnswer } = route.params; // Extrae el ejercicio, las opciones y la respuesta correcta
+  const route = useRoute();
+  const navigation = useNavigation(); 
+  const { ejercicio, opciones, categoria, correctAnswer, ejercicioId } = route.params;  // Añadir ejercicioId
   const [selectedOption, setSelectedOption] = useState(null);
-  const [hintLevel, setHintLevel] = useState(0); // Nivel de pistas
-  const [hint, setHint] = useState(''); // Contenido de la pista
-  const [modalVisible, setModalVisible] = useState(false); // Estado para mostrar el modal
-  const [solutionSteps, setSolutionSteps] = useState(''); // Guardar los pasos de la resolución
-  const [solutionModalVisible, setSolutionModalVisible] = useState(false); // Estado para el modal de solución
+  const [hintLevel, setHintLevel] = useState(0);
+  const [hint, setHint] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [solutionSteps, setSolutionSteps] = useState('');
+  const [solutionModalVisible, setSolutionModalVisible] = useState(false);
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = async (option) => {
     setSelectedOption(option);
+
+    if (option === correctAnswer) {
+      try {
+        // Obtener el usuario actual
+        const currentAccount = await getAccount();
+        if (currentAccount) {
+          // Marcar el ejercicio como resuelto para el usuario actual
+          await markExerciseAsResolved(currentAccount.$id, ejercicioId);  // Llamar a la función
+          alert('¡Ejercicio resuelto y marcado como completado!');
+        }
+      } catch (error) {
+        console.error("Error marcando el ejercicio como resuelto:", error);
+      }
+    }
   };
 
   async function getHint() {
-    if (hintLevel >= 3) return; // No permite más de 3 pistas
+    if (hintLevel >= 3) return;
 
     try {
       const genAI = new GoogleGenerativeAI(process.env.API_KEY);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      const prompt = `Proporciona una pista nivel ${hintLevel + 1} para resolver esta ejercicio "${ejercicio}" de "${categoria}".`;
+      const prompt = `Proporciona una pista nivel ${hintLevel + 1} para resolver este ejercicio "${ejercicio}" de "${categoria}".`;
       const result = await model.generateContent(prompt);
       const hintResponse = result.response.text();
 
-      console.log(prompt);
-      
-      // Aumenta el nivel de pistas y actualiza el contenido de la pista
       setHint(hintResponse);
       setHintLevel(hintLevel + 1);
-      setModalVisible(true); // Mostrar el modal con la pista
+      setModalVisible(true);
     } catch (error) {
       console.error("Error al obtener la pista del chatbot:", error);
     }
   }
 
-  // Función para obtener la explicación en 5 pasos
   async function getSolutionSteps() {
     try {
       const genAI = new GoogleGenerativeAI(process.env.API_KEY);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      const prompt = `Resuelve este ejercicio "${ejercicio}" de "${categoria}" en 5 pasos claros, en 5 lineas y muestra la fórmula que se utiliza en cada paso. En texto plano`;
+      const prompt = `Resuelve este ejercicio "${ejercicio}" de "${categoria}" en 5 pasos claros, en 5 líneas y muestra la fórmula que se utiliza en cada paso. En texto plano.`;
       const result = await model.generateContent(prompt);
       const solutionResponse = result.response.text();
-
-      console.log(prompt);
       
-      setSolutionSteps(solutionResponse); // Guarda la solución
-      setSolutionModalVisible(true); // Muestra el modal con la explicación
+      setSolutionSteps(solutionResponse);
+      setSolutionModalVisible(true);
     } catch (error) {
       console.error("Error al obtener la solución del chatbot:", error);
     }
@@ -62,14 +72,12 @@ const OpcionesScreen = () => {
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 30 }}>
 
-        {/* Título de la página */}
         <View>
           <Text className="text-3xl text-white font-bold mb-8 mt-8 text-center">
             ¡Resuelve este ejercicio!
           </Text>
         </View>
 
-        {/* Mostrar el ejercicio con estilo */}
         <View
           style={{
             width: 'flex',
@@ -87,12 +95,11 @@ const OpcionesScreen = () => {
           </Text>
         </View>
 
-        {/* Mostrar las opciones como botones */}
         <View>
           <Text className="text-xl text-white font-bold mb-4 mt-10 text-center">
             Selecciona la respuesta correcta
           </Text>
-          {opciones.slice(0, 4).map((option, index) => ( // Limita a 4 opciones
+          {opciones.slice(0, 4).map((option, index) => (
             <TouchableOpacity
               key={index}
               onPress={() => handleOptionSelect(option)}
@@ -109,7 +116,6 @@ const OpcionesScreen = () => {
             </TouchableOpacity>
           ))}
 
-          {/* Mostrar el resultado de la opción seleccionada */}
           {selectedOption && (
             <View style={{ marginTop: 12 }}>
               {selectedOption === correctAnswer ? (
@@ -125,110 +131,76 @@ const OpcionesScreen = () => {
           )}
         </View>
 
-        {/* Botón para obtener una pista */}
         <TouchableOpacity
           onPress={getHint}
-          disabled={hintLevel >= 3} // Deshabilitar cuando se alcance el máximo de pistas
+          disabled={hintLevel >= 3}
           style={{
             marginTop: 20,
             padding: 15,
-            backgroundColor: hintLevel >= 3 ? '#a0a0a0' : '#f39c12', // Cambia el color si está deshabilitado
+            backgroundColor: hintLevel >= 3 ? '#a0a0a0' : '#f39c12',
             borderRadius: 10,
           }}
         >
-          <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center' }}>
+          <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>
             {hintLevel < 3 ? `Obtener Pista (${hintLevel + 1}/3)` : "No hay más pistas disponibles"}
           </Text>
         </TouchableOpacity>
 
-        {/* Botón para obtener la explicación en 5 pasos */}
         <TouchableOpacity
           onPress={getSolutionSteps}
           style={{
             marginTop: 20,
             padding: 15,
-            backgroundColor: '#27ae60', // Verde para indicar que es la solución
+            backgroundColor: '#159e19',
             borderRadius: 10,
           }}
         >
-          <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center' }}>
-            Obtener explicación en 5 pasos
+          <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>
+            Explicación de la solución
           </Text>
         </TouchableOpacity>
 
-        {/* Modal para mostrar la pista */}
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            marginTop: 20,
+            padding: 15,
+            backgroundColor: '#193bfc',
+            borderRadius: 10,
+          }}
+        >
+          <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>
+            Volver
+          </Text>
+        </TouchableOpacity>
+
         <Modal
           visible={modalVisible}
           transparent={true}
           animationType="slide"
           onRequestClose={() => setModalVisible(false)}
         >
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-            <View
-              style={{
-                backgroundColor: 'white',
-                padding: 20,
-                borderRadius: 10,
-                width: '80%',
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.8,
-                shadowRadius: 2,
-                elevation: 5,
-              }}
-            >
-              <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>Pista {hintLevel}</Text>
-              <Text style={{ fontSize: 16 }}>{hint}</Text>
-
-              <TouchableOpacity
-                onPress={() => setModalVisible(false)}
-                style={{
-                  marginTop: 20,
-                  padding: 10,
-                  backgroundColor: '#007bff',
-                  borderRadius: 10,
-                }}
-              >
-                <Text style={{ color: '#fff', textAlign: 'center' }}>Cerrar</Text>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+              <Text>{hint}</Text>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <Text style={{ color: 'blue', marginTop: 10 }}>Cerrar</Text>
               </TouchableOpacity>
             </View>
           </View>
         </Modal>
 
-        {/* Modal para mostrar la explicación de los 5 pasos */}
         <Modal
           visible={solutionModalVisible}
           transparent={true}
           animationType="slide"
           onRequestClose={() => setSolutionModalVisible(false)}
         >
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-            <View
-              style={{
-                backgroundColor: 'white',
-                padding: 20,
-                borderRadius: 10,
-                width: '80%',
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.8,
-                shadowRadius: 2,
-                elevation: 5,
-              }}
-            >
-              <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>Resolución del ejercicio</Text>
-              <Text style={{ fontSize: 16 }}>{solutionSteps}</Text>
-
-              <TouchableOpacity
-                onPress={() => setSolutionModalVisible(false)}
-                style={{
-                  marginTop: 20,
-                  padding: 10,
-                  backgroundColor: '#007bff',
-                  borderRadius: 10,
-                }}
-              >
-                <Text style={{ color: '#fff', textAlign: 'center' }}>Cerrar</Text>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+              <Text>{solutionSteps}</Text>
+              <TouchableOpacity onPress={() => setSolutionModalVisible(false)}>
+                <Text style={{ color: 'blue', marginTop: 10 }}>Cerrar</Text>
               </TouchableOpacity>
             </View>
           </View>

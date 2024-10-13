@@ -1,9 +1,10 @@
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Image, FlatList, TouchableOpacity } from "react-native";
+import { View, Image, FlatList, TouchableOpacity, RefreshControl } from "react-native";
 import { icons } from "../../constants";
+import { useEffect, useState } from "react";
 import useAppwrite from "../../lib/useAppwrite";
-import { getUserPosts, signOut } from "../../lib/appwrite";
+import { getResolvedExercises, getUserPosts, signOut } from "../../lib/appwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import EjercicioCard from "../../components/EjercicioCard";
 import EmptyState from "../../components/EmptyState";
@@ -12,8 +13,16 @@ import InfoBox from "../../components/InfoBox";
 
 
 const profile = () => {
-  const { data: posts } = useAppwrite(() => getUserPosts(user.$id));
   const { user, setUser, setIsLogged } = useGlobalContext();
+  const { data: posts } = useAppwrite(() => getResolvedExercises(user.$id));
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
 
   const logout = async () => {
     await signOut();
@@ -32,6 +41,7 @@ const profile = () => {
           <EjercicioCard
             title={item.titulo}
             ejercicio={item.ejercicio}
+            categoria={item.categoria}
           />
         )}
         ListEmptyComponent={() => (
@@ -46,6 +56,7 @@ const profile = () => {
               onPress={logout}
               className="flex w-full items-end mb-10"
             >
+              
               <Image
                 source={icons.logout}
                 resizeMode="contain"
@@ -74,7 +85,7 @@ const profile = () => {
                 titleStyles="text-xl"
                 containerStyles="mr-9"
               />
-               <InfoBox
+              <InfoBox
                 title={user?.score}
                 subtitle="Nivel"
                 titleStyles="text-xl"
@@ -84,6 +95,9 @@ const profile = () => {
           </View>
         )}
       />
+      
+
+
     </SafeAreaView>
   );
 };

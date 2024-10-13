@@ -1,15 +1,17 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { images } from '../constants'
-import CustomButton from './CustomButton'
-import { router } from 'expo-router'
+import {useNavigation } from '@react-navigation/native';
 
-const EmptyState = ({title, subtitle}) => {
+
+
+const EmptyState = ({ title, subtitle }) => {
+    const navigation = useNavigation();
     return (
         <View className="justify-center items-center px-4">
             <Image
                 source={images.empty} className="w-[270px]
-      h-[215px]" resizeMode='contain' />   
+      h-[215px]" resizeMode='contain' />
             <Text className="text-xl text-center font-psemibold
             text-white">
                 {title}
@@ -18,11 +20,19 @@ const EmptyState = ({title, subtitle}) => {
             text-gray-100">
                 {subtitle}
             </Text>
-            <CustomButton 
-             title="Inicio"
-             handlePress={() => router.push('/home')}
-             containerStyles="w-full my-5"
-            />
+            <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                style={{
+                    marginTop: 20,
+                    padding: 15,
+                    backgroundColor: '#193bfc',
+                    borderRadius: 10,
+                }}
+            >
+                <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>
+                    Volver
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }

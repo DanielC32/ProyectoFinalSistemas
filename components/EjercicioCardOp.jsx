@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useNavigation } from '@react-navigation/native'; // Importa useNavigation
 
-const EjercicioCardOp = ({ title, categoria, ejercicio, dificultad }) => {
+const EjercicioCardOp = ({ title, categoria, ejercicio, dificultad, ejercicioId }) => {
   const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -42,6 +42,7 @@ const EjercicioCardOp = ({ title, categoria, ejercicio, dificultad }) => {
         ejercicio: ejercicio, 
         categoria: categoria,// Asegúrate de pasar este parámetro
         opciones: options,
+        ejercicioId: ejercicioId,
         correctAnswer: correctAnswerFromModel // Esto no se muestra, pero se envía para la verificación
       });
 
@@ -76,11 +77,11 @@ const EjercicioCardOp = ({ title, categoria, ejercicio, dificultad }) => {
         style={{
           marginTop: 12,
           padding: 10,
-          backgroundColor: '#007bff',
+          backgroundColor: '#159e19',
           borderRadius: 10,
         }}
       >
-        <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center' }}>
+        <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>
           Resolver
         </Text>
       </TouchableOpacity>
