@@ -38,7 +38,7 @@ const EjercicioCardOp = ({ title, categoria, ejercicio, dificultad, ejercicioId 
       setOptions(options); // Guardamos las opciones generadas
 
       // Navegar a la pantalla de opciones con los parámetros
-      navigation.navigate('OpcionesScreen', {
+      navigation.navigate('opciones', {
         ejercicio: ejercicio, 
         categoria: categoria,// Asegúrate de pasar este parámetro
         opciones: options,

@@ -14,6 +14,8 @@ const OpcionesScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [solutionSteps, setSolutionSteps] = useState('');
   const [solutionModalVisible, setSolutionModalVisible] = useState(false);
+  const [incorrectModalVisible, setIncorrectModalVisible] = useState(false); // State for incorrect feedback
+  const [correctModalVisible, setCorrectModalVisible] = useState(false); // State for correct feedback
 
   const handleOptionSelect = async (option) => {
     setSelectedOption(option);
@@ -25,11 +27,16 @@ const OpcionesScreen = () => {
         if (currentAccount) {
           // Marcar el ejercicio como resuelto para el usuario actual
           await markExerciseAsResolved(currentAccount.$id, ejercicioId);  // Llamar a la función
-          alert('¡Ejercicio resuelto y marcado como completado!');
+          
+          // Show the correct answer modal
+          setCorrectModalVisible(true);
         }
       } catch (error) {
         console.error("Error marcando el ejercicio como resuelto:", error);
       }
+    } else {
+      // Show the feedback modal if the answer is incorrect
+      setIncorrectModalVisible(true);
     }
   };
 
@@ -40,7 +47,7 @@ const OpcionesScreen = () => {
       const genAI = new GoogleGenerativeAI(process.env.API_KEY);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      const prompt = `Proporciona una pista nivel ${hintLevel + 1} para resolver este ejercicio "${ejercicio}" de "${categoria}".`;
+      const prompt = `Proporciona una pista nivel ${hintLevel + 1} para resolver este ejercicio "${ejercicio}" de "${categoria}. En texto plano".`;
       const result = await model.generateContent(prompt);
       const hintResponse = result.response.text();
 
@@ -146,6 +153,7 @@ const OpcionesScreen = () => {
           </Text>
         </TouchableOpacity>
 
+                {/*
         <TouchableOpacity
           onPress={getSolutionSteps}
           style={{
@@ -159,6 +167,8 @@ const OpcionesScreen = () => {
             Explicación de la solución
           </Text>
         </TouchableOpacity>
+        */}
+
 
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -174,22 +184,76 @@ const OpcionesScreen = () => {
           </Text>
         </TouchableOpacity>
 
+        {/* Modal for Incorrect Answer Feedback */}
         <Modal
-          visible={modalVisible}
+          visible={incorrectModalVisible}
           transparent={true}
           animationType="slide"
-          onRequestClose={() => setModalVisible(false)}
+          onRequestClose={() => setIncorrectModalVisible(false)}
         >
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
-              <Text>{hint}</Text>
-              <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Text style={{ color: 'red', fontSize: 18, fontWeight: 'bold' }}>
+                ¡Respuesta Incorrecta!
+              </Text>
+              <Text style={{ marginTop: 10 }}>Intenta nuevamente o revisa las pistas para obtener más ayuda.</Text>
+              <TouchableOpacity onPress={() => setIncorrectModalVisible(false)}>
                 <Text style={{ color: 'blue', marginTop: 10 }}>Cerrar</Text>
               </TouchableOpacity>
             </View>
           </View>
         </Modal>
 
+        {/* Modal for Correct Answer Feedback */}
+        <Modal
+          visible={correctModalVisible}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setCorrectModalVisible(false)}
+        >
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+              <Text style={{ color: 'green', fontSize: 18, fontWeight: 'bold' }}>
+                ¡Respuesta Correcta!
+              </Text>
+              <Text style={{ marginTop: 10 }}>¿Qué te gustaría hacer ahora?</Text>
+              
+              {/* Button to go back */}
+              <TouchableOpacity
+                onPress={() => {
+                  setCorrectModalVisible(false);
+                  navigation.goBack();
+                }}
+                style={{
+                  padding: 10,
+                  backgroundColor: '#193bfc',
+                  borderRadius: 10,
+                  marginTop: 10,
+                }}
+              >
+                <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>Volver</Text>
+              </TouchableOpacity>
+
+              {/* Button to show the solution */}
+              <TouchableOpacity
+                onPress={() => {
+                  setCorrectModalVisible(false);
+                  getSolutionSteps();
+                }}
+                style={{
+                  padding: 10,
+                  backgroundColor: '#159e19',
+                  borderRadius: 10,
+                  marginTop: 10,
+                }}
+              >
+                <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>Ver Solución</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
+        {/* Modal for Solution Steps */}
         <Modal
           visible={solutionModalVisible}
           transparent={true}
@@ -199,8 +263,19 @@ const OpcionesScreen = () => {
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
               <Text>{solutionSteps}</Text>
-              <TouchableOpacity onPress={() => setSolutionModalVisible(false)}>
-                <Text style={{ color: 'blue', marginTop: 10 }}>Cerrar</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setSolutionModalVisible(false);
+                  setCorrectModalVisible(true); // Show the correct answer modal again
+                }}
+                style={{
+                  padding: 10,
+                  backgroundColor: '#193bfc',
+                  borderRadius: 10,
+                  marginTop: 10,
+                }}
+              >
+                <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>Volver</Text>
               </TouchableOpacity>
             </View>
           </View>

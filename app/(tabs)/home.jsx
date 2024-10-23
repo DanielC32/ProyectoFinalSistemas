@@ -1,5 +1,6 @@
 import { View, Text, FlatList, Image, RefreshControl, Alert } from 'react-native'
 import { useEffect, useState } from "react";
+import { router } from "expo-router";
 import { SafeAreaView } from 'react-native-safe-area-context'
 import SearchInput from '../../components/SearchInput'
 import EjercicioCard from '../../components/EjercicioCard'
@@ -7,12 +8,14 @@ import EmptyState from '../../components/EmptyState'
 import { searchPostsbyLv } from '../../lib/appwrite';
 import useAppwrite from '../../lib/useAppwrite';
 import { useGlobalContext } from "../../context/GlobalProvider";
+import CustomButton from '../../components/CustomButton';
 
 
 const Home = () => {
 
   const { user } = useGlobalContext();
-  const { data: posts, refetch } = useAppwrite(() => searchPostsbyLv("4"));
+  const { data: posts, refetch } = useAppwrite(() => searchPostsbyLv(user.score));
+  
 
   useEffect(() => {
     refetch();
@@ -55,6 +58,11 @@ const Home = () => {
                   source={{ uri: user?.avatar }}
                   className="w-12 h-12 rounded-lg"
                   resizeMode="contain"
+                />
+                <CustomButton
+                  title="Ecuaciones"
+                  handlePress={() => router.push(`/tinicial`)}
+                  containerStyles="w-full mt-7"
                 />
               </View>
             </View>
