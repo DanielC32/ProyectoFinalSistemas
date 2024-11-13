@@ -20,13 +20,19 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
         "package": "com.proyectofinal.matekl"
-      }
+      },
+      "package": "com.danielc32.ProyectoFinal"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "45d2d8fc-dbae-4f9e-bbd0-97a5c576ac6e"
+      }
+    }
   }
 }

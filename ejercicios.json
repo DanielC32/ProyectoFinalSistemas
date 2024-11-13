@@ -1,0 +1,363 @@
+[
+    {
+      "titulo": "Derivada de un polinomio simple",
+      "ejercicio": "f(x) = 3x^2 + 5x - 7",
+      "categoria": "Derivadas",
+      "dificultad": "1"
+    },
+    {
+      "titulo": "Suma de derivadas trigonométricas",
+      "ejercicio": "g(x) = sin(x) + cos(x)",
+      "categoria": "Derivadas",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Derivada de una exponencial",
+      "ejercicio": "h(x) = e^(2x)",
+      "categoria": "Derivadas",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Derivada de un logaritmo natural",
+      "ejercicio": "f(x) = ln(x)",
+      "categoria": "Derivadas",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Derivada de una función recíproca",
+      "ejercicio": "g(x) = 1/x",
+      "categoria": "Derivadas",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Polinomio cúbico",
+      "ejercicio": "h(x) = x^3 - 6x^2 + 9x",
+      "categoria": "Derivadas",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Raíz cuadrada de x",
+      "ejercicio": "f(x) = sqrt(x)",
+      "categoria": "Derivadas",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Derivada de una tangente",
+      "ejercicio": "g(x) = tan(x)",
+      "categoria": "Derivadas",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Producto de funciones",
+      "ejercicio": "h(x) = x^2 * sin(x)",
+      "categoria": "Derivadas",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Exponencial de una función cuadrática",
+      "ejercicio": "f(x) = e^(x^2)",
+      "categoria": "Derivadas",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Logaritmo de un polinomio",
+      "ejercicio": "g(x) = ln(x^2 + 1)",
+      "categoria": "Derivadas",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Polinomio de quinto grado",
+      "ejercicio": "h(x) = x^5 - 3x^3 + 2x",
+      "categoria": "Derivadas",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Composición con un coseno",
+      "ejercicio": "f(x) = cos(x^2)",
+      "categoria": "Derivadas",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Cociente de polinomios",
+      "ejercicio": "g(x) = (3x^2 + 1)/(x + 1)",
+      "categoria": "Derivadas",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Producto con una exponencial",
+      "ejercicio": "h(x) = x^4 * e^x",
+      "categoria": "Derivadas",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Derivada de una secante",
+      "ejercicio": "f(x) = sec(x)",
+      "categoria": "Derivadas",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Producto de x^2 y un logaritmo",
+      "ejercicio": "g(x) = x^2 * ln(x)",
+      "categoria": "Derivadas",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Cociente con un polinomio cuadrático",
+      "ejercicio": "h(x) = x/(x^2 + 1)",
+      "categoria": "Derivadas",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Exponencial de base 2",
+      "ejercicio": "f(x) = 2^x",
+      "categoria": "Derivadas",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Cuadrado de un seno",
+      "ejercicio": "g(x) = (sin(x))^2",
+      "categoria": "Derivadas",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Límite de un polinomio simple",
+      "ejercicio": "lim(x -> 2) (3x^2 - 5)",
+      "categoria": "Límites",
+      "dificultad": "1"
+    },
+    {
+      "titulo": "Límite trigonométrico básico",
+      "ejercicio": "lim(x -> 0) (sin(x)/x)",
+      "categoria": "Límites",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Indeterminación de una fracción",
+      "ejercicio": "lim(x -> 1) (x^2 - 1)/(x - 1)",
+      "categoria": "Límites",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Límite en el infinito",
+      "ejercicio": "lim(x -> ∞) (5x^3 + 2)/(4x^3 - 1)",
+      "categoria": "Límites",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Diferencia de cosenos en el límite",
+      "ejercicio": "lim(x -> 0) (1 - cos(x))/x^2",
+      "categoria": "Límites",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Simplificación cuadrática",
+      "ejercicio": "lim(x -> 2) (x^2 - 4)/(x - 2)",
+      "categoria": "Límites",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Indeterminación cúbica",
+      "ejercicio": "lim(x -> -1) (x^3 + 1)/(x + 1)",
+      "categoria": "Límites",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Comparación de funciones en el infinito",
+      "ejercicio": "lim(x -> ∞) (2x^2 - 3x + 1)/(x^2 + 4)",
+      "categoria": "Límites",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Límite de una exponencial",
+      "ejercicio": "lim(x -> 0) (e^x - 1)/x",
+      "categoria": "Límites",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Límite de cocientes polinomiales",
+      "ejercicio": "lim(x -> 3) (x^2 - 9)/(x - 3)",
+      "categoria": "Límites",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Límite de cocientes en el infinito",
+      "ejercicio": "lim(x -> ∞) (3x^4 - 5)/(7x^4 + 2)",
+      "categoria": "Límites",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Diferencia de senos en el límite",
+      "ejercicio": "lim(x -> 0) (x - sin(x))/x^3",
+      "categoria": "Límites",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Límite de un logaritmo",
+      "ejercicio": "lim(x -> 1) (ln(x))/(x - 1)",
+      "categoria": "Límites",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Cociente de límites",
+      "ejercicio": "lim(x -> 2) (x^2 - 4)/(x^2 - 2x)",
+      "categoria": "Límites",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Límite en el infinito con raíces",
+      "ejercicio": "lim(x -> ∞) (x - sqrt(x^2 + x))",
+      "categoria": "Límites",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Límite de la tangente",
+      "ejercicio": "lim(x -> 0) (tan(x))/x",
+      "categoria": "Límites",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Factorización cúbica",
+      "ejercicio": "lim(x -> 2) (x^3 - 8)/(x - 2)",
+      "categoria": "Límites",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Cociente cuadrático y coseno",
+      "ejercicio": "lim(x -> 0) (x^2)/(1 - cos(x))",
+      "categoria": "Límites",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Límite negativo en el infinito",
+      "ejercicio": "lim(x -> -∞) (x^2 + 1)/(x + 1)",
+      "categoria": "Límites",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Límite de una función recíproca",
+      "ejercicio": "lim(x -> 0) (1/x)",
+      "categoria": "Límites",
+      "dificultad": "5"
+    },
+    {
+      "titulo": "Ecuación lineal básica",
+      "ejercicio": "2x + 3 = 7",
+      "categoria": "Ecuaciones",
+      "dificultad": "1"
+    },
+    {
+      "titulo": "Raíces de un cuadrado simple",
+      "ejercicio": "x^2 - 4 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "1"
+    },
+    {
+      "titulo": "Ecuación lineal con constantes",
+      "ejercicio": "3x - 5 = 10",
+      "categoria": "Ecuaciones",
+      "dificultad": "1"
+    },
+    {
+      "titulo": "Factorización cuadrática",
+      "ejercicio": "x^2 + 5x + 6 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Diferencia de cuadrados",
+      "ejercicio": "x^2 - 9 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "1"
+    },
+    {
+      "titulo": "Factor común en cuadráticos",
+      "ejercicio": "2x^2 - 8 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Raíz cúbica",
+      "ejercicio": "x^3 - 27 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Polinomio cuadrático con constante",
+      "ejercicio": "3x^2 - 12x + 9 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Cuadrado perfecto",
+      "ejercicio": "x^2 + 4x + 4 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Polinomio cuadrado factorizable",
+      "ejercicio": "4x^2 + 12x + 9 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Ecuación bicuadrada",
+      "ejercicio": "x^4 - 16 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Ecuación cuadrática general",
+      "ejercicio": "2x^2 + 3x - 5 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "3"
+    },
+    {
+      "titulo": "Factorización de trinomio",
+      "ejercicio": "x^2 - 6x + 9 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Ecuación cúbica mixta",
+      "ejercicio": "2x^3 - 3x^2 + x - 6 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Lineal con distribución",
+      "ejercicio": "5x - 3 = 2(x + 1)",
+      "categoria": "Ecuaciones",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Cuadrado factorizable",
+      "ejercicio": "x^2 + x - 2 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Polinomio cúbico completo",
+      "ejercicio": "x^3 + 3x^2 + 3x + 1 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "4"
+    },
+    {
+      "titulo": "Distribución en una lineal",
+      "ejercicio": "6x - 2(x + 4) = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Trinomio cuadrático factorizable",
+      "ejercicio": "x^2 - 5x + 6 = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "2"
+    },
+    {
+      "titulo": "Factorización cúbica",
+      "ejercicio": "3x^3 - 12x = 0",
+      "categoria": "Ecuaciones",
+      "dificultad": "3"
+    }
+  ]
+  

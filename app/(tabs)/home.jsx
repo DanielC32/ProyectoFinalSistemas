@@ -59,11 +59,6 @@ const Home = () => {
                   className="w-12 h-12 rounded-lg"
                   resizeMode="contain"
                 />
-                <CustomButton
-                  title="Ecuaciones"
-                  handlePress={() => router.push(`/tinicial`)}
-                  containerStyles="w-full mt-7"
-                />
               </View>
             </View>
             <SearchInput />
